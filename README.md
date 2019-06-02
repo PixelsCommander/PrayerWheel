@@ -1,44 +1,17 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Karma Wheel
 
-## Available Scripts
+According to Tibetan Buddhist tradition, a prayer wheel produces positive karma when spinning, blessing all living beings around and most of all the one who spins. Based on the lineage texts regarding prayer wheels, spinning such a wheel will have much the same meritorious effect as orally reciting the prayers.
 
-In the project directory, you can run:
+[Thubten Zopa Rinpoche](https://en.wikipedia.org/wiki/Thubten_Zopa_Rinpoche)  has commented that having a prayer wheel has the capacity to completely transform a place, which becomes "...peaceful, pleasant, and conducive to the mind." Simply touching a prayer wheel is said to bring great purification to negative karmas and obscurations.
 
-### `npm start`
+His Holiness, the Dalai Lama, has said that having the mantra on your computer works the same as a traditional Mani wheel. So here comes open source 3d prayer wheel built with WebGL, ReactJS and physical based rendering.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+[Spin the wheel](https://prayer-wheel.herokuapp.com/)
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+All contributions and ideas are welcome.
 
-### `npm test`
+## License
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Any use of this source code or graphics is free and is highly appreciated while it leads to prosperity or happiness of any living beings. Any content of the repository should not be used for commercial purpose. 
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Crafted 2019 by Denis Radin aka [PixelsCommander](http://pixelscommander.com)
