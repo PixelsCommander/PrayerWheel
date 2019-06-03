@@ -1,8 +1,7 @@
 import {AbstractMesh, Mesh, Scene, SceneLoader, Axis, Space, PointerDragBehavior, Vector3} from "@babylonjs/core";
 import "@babylonjs/loaders/";
-import { ContextType } from "../../Context";
-
-//const autoRotationSpeed = 0.01;
+import {ContextType} from "../../Context";
+import {minMantraSpeed} from "../../constants";
 
 export class Wheel extends Mesh {
     private model?: AbstractMesh;
@@ -10,9 +9,11 @@ export class Wheel extends Mesh {
     private friction = 0.99;
     private autoRotate = false;
     private lastMousePosition?: number;
+    private context: ContextType;
 
     constructor(name: string, scene: Scene, context: ContextType) {
         super(name, scene);
+        this.context = context;
 
         SceneLoader.Append("./assets/", "prayerwheel.glb", scene, (sceneArg) => {
             this.model = this.getScene().meshes.find(mesh => {
@@ -76,7 +77,17 @@ export class Wheel extends Mesh {
     }
 
     setSpeed(pixels: number) {
-        this.speed = Math.max(pixels, this.speed);
+        const speed = Math.max(pixels, this.speed);
+        this.setSpeedToContext(speed);
+        this.speed = speed;
+    }
+
+    // Optimization to run tree updates only when boundry of minMantraSpeed is reached
+    setSpeedToContext(newSpeed: number) {
+        if (this.context.setSpeed && ((newSpeed >= minMantraSpeed && this.speed <= minMantraSpeed) ||
+            (this.speed >= minMantraSpeed && newSpeed <= minMantraSpeed))) {
+            this.context.setSpeed(newSpeed);
+        }
     }
 
     rotateWheel = () => {
@@ -85,7 +96,11 @@ export class Wheel extends Mesh {
         }
 
         if (!this.autoRotate) {
-            this.speed *= this.friction;
+            const newSpeed = this.speed * this.friction;
+
+            this.setSpeedToContext(newSpeed);
+
+            this.speed = newSpeed;
         }
 
         requestAnimationFrame(this.rotateWheel);

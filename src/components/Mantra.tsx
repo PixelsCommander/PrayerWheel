@@ -1,11 +1,11 @@
 import * as React from 'react';
+import { opacityTransitionTime, mantrasInterval, minMantraSpeed } from '../constants';
+import {Context} from "../Context";
 
 export interface MantraState {
     visible: boolean;
     textIdx: number;
 }
-
-const opacityTransitionTime = 500;
 
 const texts = [
     'May all beings everywhere be happy and free',
@@ -15,6 +15,8 @@ const texts = [
 
 export class Mantra extends React.Component<{}, MantraState> {
 
+    private interval?: number;
+
     constructor(props: {}) {
         super(props);
         this.state = {
@@ -23,10 +25,6 @@ export class Mantra extends React.Component<{}, MantraState> {
         }
 
         this.triggerText = this.triggerText.bind(this);
-    }
-
-    componentDidMount() {
-        setInterval(this.triggerText, 5000);
     }
 
     triggerText() {
@@ -45,9 +43,23 @@ export class Mantra extends React.Component<{}, MantraState> {
     }
 
     render() {
+        let quickEnough = false;
+
+        if (this.context.speed > minMantraSpeed) {
+            if (!this.interval) {
+                this.interval = window.setInterval(this.triggerText, mantrasInterval);
+            }
+            quickEnough = true;
+        } else {
+            if (this.interval) {
+                window.clearInterval(this.interval);
+                this.interval = undefined;
+            }
+        }
+
         const mantraClassNames = ['DialogContent'];
 
-        if (!this.state.visible) {
+        if (!this.state.visible || !quickEnough) {
             mantraClassNames.push('Invisible');
         }
 
@@ -58,3 +70,5 @@ export class Mantra extends React.Component<{}, MantraState> {
         </div>;
     }
 }
+
+Mantra.contextType = Context;
