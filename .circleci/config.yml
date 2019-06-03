@@ -33,5 +33,5 @@ jobs:
       - run: sudo apt install sshpass
       - run:
           name: deploy app
-          command: sshpass -p $FTP_PASSWORD scp -o StrictHostKeyChecking=no -l ./build/* $FTP_USER@$SSH_HOST:/home/u4344/domains/prayerwheel.app
+          command: sshpass -p $FTP_PASSWORD scp -o StrictHostKeyChecking=no ./build/* $FTP_USER@$SSH_HOST:/home/u4344/domains/prayerwheel.app
       - run: echo 'done'
