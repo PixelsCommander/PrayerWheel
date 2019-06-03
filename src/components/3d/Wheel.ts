@@ -9,7 +9,7 @@ export class Wheel extends Mesh {
     private speed = 0.01;
     private friction = 0.99;
     private autoRotate = false;
-    private lastX?: number;
+    private lastMousePosition?: number;
 
     constructor(name: string, scene: Scene, context: ContextType) {
         super(name, scene);
@@ -41,7 +41,7 @@ export class Wheel extends Mesh {
             const pickResult = this.getScene().pick(this.getScene().pointerX, this.getScene().pointerY);
 
             if (pickResult && pickResult.hit && pickResult.pickedPoint) {
-                this.lastX = pickResult.pickedPoint.x;
+                this.lastMousePosition = pickResult.pickedPoint.z;
             }
         })
 
@@ -50,19 +50,24 @@ export class Wheel extends Mesh {
 
             if (pickResult && pickResult.hit && pickResult.pickedPoint) {
 
-                if (this.lastX) {
-                    const speed = pickResult.pickedPoint.x - this.lastX;
+                const relativePosition = Math.min(1, pickResult.pickedPoint.z / 2.5);
+
+                if (this.lastMousePosition !== undefined) {
+                    const oldAngle = Math.acos(this.lastMousePosition);
+                    const newAngle = Math.acos(relativePosition);
+
+                    const speed = newAngle - oldAngle;
                     if (speed > 0) {
                         this.setSpeed(speed);
                     }
                 }
 
-                this.lastX = pickResult.pickedPoint.x;
+                this.lastMousePosition = relativePosition;
             }
         })
 
         pointerDragBehavior.onDragEndObservable.add((event) => {
-            this.lastX = undefined;
+            this.lastMousePosition = undefined;
         })
 
         if (this.model) {

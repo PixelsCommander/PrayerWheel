@@ -31,15 +31,12 @@ class App extends React.Component<{}, ContextType> {
     }
 
     setLoaded(value: boolean) {
-        console.log(value);
         this.setState({
             loaded: value,
         });
     }
 
     render() {
-        console.log(this.state.loaded);
-
         return (
             <div className="App">
                 <Context.Provider value={this.state}>

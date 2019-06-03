@@ -26,7 +26,6 @@ export class Mantra extends React.Component<{}, MantraState> {
     }
 
     componentDidMount() {
-        console.log('Mantra loaded');
         setInterval(this.triggerText, 5000);
     }
 

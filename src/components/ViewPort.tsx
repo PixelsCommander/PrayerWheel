@@ -33,7 +33,7 @@ export class ViewPort extends React.Component {
         this.engine = new Engine(this.canvas.current, true, undefined, true);
         this.scene = new Scene(this.engine);
 
-        this.camera = new ArcRotateCamera('camera', -5.49, 1.75, 14.5, new Vector3(0, 0.9, 0), this.scene);
+        this.camera = new ArcRotateCamera('camera', 0, 1.75, 14.5, new Vector3(0, 0.9, 0), this.scene);
 
         this.light = new DirectionalLight('light1', new Vector3(5, 5, 2), this.scene);
         this.light.direction = new Vector3(-0.67, -0.67, -0.33);
