@@ -35,9 +35,9 @@ export class ViewPort extends React.Component {
 
         this.camera = new ArcRotateCamera('camera', 0, 1.75, 14.5, new Vector3(0, 0.9, 0), this.scene);
 
-        this.light = new DirectionalLight('light1', new Vector3(5, 5, 2), this.scene);
-        this.light.direction = new Vector3(-0.67, -0.67, -0.33);
-        this.light.intensity = 3;
+        this.light = new DirectionalLight('light1', new Vector3(-5, 6, 3), this.scene);
+        this.light.direction = new Vector3(-0.892, -0.405, -0.2);
+        this.light.intensity = 2;
         this.light.shadowEnabled = false;
 
         var skybox = MeshBuilder.CreateBox("skyBox", {size: 50.0}, this.scene);
@@ -65,6 +65,8 @@ export class ViewPort extends React.Component {
         window.addEventListener('resize', () => {
             this.engine.resize();
         });
+
+        // this.scene.debugLayer.show();
     }
 
     render() {
