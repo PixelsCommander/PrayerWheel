@@ -26,6 +26,7 @@ export class Mantra extends React.Component<{}, MantraState> {
     }
 
     componentDidMount() {
+        console.log('Mantra loaded');
         setInterval(this.triggerText, 5000);
     }
 
@@ -45,13 +46,13 @@ export class Mantra extends React.Component<{}, MantraState> {
     }
 
     render() {
-        const mantraClassNames = ['MantraText'];
+        const mantraClassNames = ['DialogContent'];
 
         if (!this.state.visible) {
             mantraClassNames.push('Invisible');
         }
 
-        return <div className="MantraOverlay">
+        return <div className="DialogOverlay">
             <div className={mantraClassNames.join(' ')}>
                 {texts[this.state.textIdx]}
             </div>

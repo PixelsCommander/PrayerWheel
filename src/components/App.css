@@ -12,7 +12,7 @@ html, body, .App, #root {
   touch-action: none;
 }
 
-.MantraOverlay {
+.DialogOverlay {
   position: absolute;
   left: 0;
   top: 0;
@@ -24,7 +24,7 @@ html, body, .App, #root {
   transform: translate(0, 50%);
 }
 
-.MantraText {
+.DialogContent {
   background-color: rgba(0, 0, 0, 0.5);
   padding: 30px;
   font-size: 48px;
@@ -40,4 +40,16 @@ html, body, .App, #root {
   opacity: 0;
 }
 
+.SwipeIcon {
+  position: relative;
+  left: 15%;
+  animation: slide 2s infinite;
+  animation-delay: 0.5s;
+  text-align: center;
+  transform: translate(0, -50%);
+  transition: all 0.5s linear;
+}
 
+@keyframes slide {
+  100% { left: -15%; }
+}

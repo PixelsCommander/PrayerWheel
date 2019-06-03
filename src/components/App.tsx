@@ -3,7 +3,7 @@ import './App.css';
 import {ViewPort} from './ViewPort';
 import {Mantra} from './Mantra';
 import {Context, ContextType} from '../Context';
-
+import {SwipeIcon} from "./SwipeIcon";
 
 class App extends React.Component<{}, ContextType> {
     constructor(props: {}) {
@@ -11,33 +11,41 @@ class App extends React.Component<{}, ContextType> {
         this.state = {
             speed: 0,
             spins: 0,
+            loaded: false,
+            setSpins: this.setSpins.bind(this),
+            setSpeed: this.setSpeed.bind(this),
+            setLoaded: this.setLoaded.bind(this),
         };
     }
 
     setSpins(value: number) {
-        this.setState(state => {
-            return {
-                spins: value,
-                ...this.state
-            };
+        this.setState({
+            spins: value,
         });
     }
 
     setSpeed(value: number) {
-        this.setState(state => {
-            return {
-                speed: value,
-                ...this.state
-            };
+        this.setState({
+            speed: value,
+        });
+    }
+
+    setLoaded(value: boolean) {
+        console.log(value);
+        this.setState({
+            loaded: value,
         });
     }
 
     render() {
+        console.log(this.state.loaded);
+
         return (
             <div className="App">
                 <Context.Provider value={this.state}>
                     <ViewPort/>
-                    <Mantra/>
+                    {this.state.loaded && <Mantra/>}
+                    {this.state.loaded && <SwipeIcon/>}
                 </Context.Provider>
             </div>
         );

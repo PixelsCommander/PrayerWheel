@@ -1,7 +1,8 @@
 import {AbstractMesh, Mesh, Scene, SceneLoader, Axis, Space, PointerDragBehavior, Vector3} from "@babylonjs/core";
 import "@babylonjs/loaders/";
+import { ContextType } from "../../Context";
 
-const rotationSpeed = 0.01;
+//const autoRotationSpeed = 0.01;
 
 export class Wheel extends Mesh {
     private model?: AbstractMesh;
@@ -10,7 +11,7 @@ export class Wheel extends Mesh {
     private autoRotate = false;
     private lastX?: number;
 
-    constructor(name: string, scene: Scene) {
+    constructor(name: string, scene: Scene, context: ContextType) {
         super(name, scene);
 
         SceneLoader.Append("./assets/", "prayerwheel.glb", scene, (sceneArg) => {
@@ -24,6 +25,10 @@ export class Wheel extends Mesh {
 
             this.rotateWheel();
             this.initDrag();
+
+            if (context.setLoaded) {
+                context.setLoaded(true);
+            }
         });
     }
 
@@ -57,8 +62,6 @@ export class Wheel extends Mesh {
         })
 
         pointerDragBehavior.onDragEndObservable.add((event) => {
-            //console.log("dragEnd");
-            //console.log(event);
             this.lastX = undefined;
         })
 

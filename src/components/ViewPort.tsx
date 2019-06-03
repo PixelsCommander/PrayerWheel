@@ -14,13 +14,11 @@ import {
 
 import "@babylonjs/core/Debug/debugLayer";
 import "@babylonjs/inspector";
+import { Context } from "../Context";
 
 import {Wheel} from './3d/Wheel';
 
 const skyboxPath = "/assets/environment-specular.env";
-
-let x: number | null = null;
-let speed: number | null = null;
 
 export class ViewPort extends React.Component {
 
@@ -40,6 +38,7 @@ export class ViewPort extends React.Component {
         this.light = new DirectionalLight('light1', new Vector3(5, 5, 2), this.scene);
         this.light.direction = new Vector3(-0.67, -0.67, -0.33);
         this.light.intensity = 3;
+        this.light.shadowEnabled = false;
 
         var skybox = MeshBuilder.CreateBox("skyBox", {size: 50.0}, this.scene);
         var skyboxMaterial = new PBRMaterial("skyBox", this.scene);
@@ -57,7 +56,7 @@ export class ViewPort extends React.Component {
             this.scene.environmentTexture = CubeTexture.CreateFromPrefilteredData(skyboxPath, this.scene);
         }
 
-        this.karmaWheel = new Wheel('wheel', this.scene);
+        this.karmaWheel = new Wheel('wheel', this.scene, this.context);
 
         this.engine.runRenderLoop(() => {
             this.scene.render();
@@ -66,11 +65,11 @@ export class ViewPort extends React.Component {
         window.addEventListener('resize', () => {
             this.engine.resize();
         });
-
-        // this.scene.debugLayer.show();
     }
 
     render() {
         return <canvas ref={this.canvas} className="ViewPort"></canvas>;
     }
 }
+
+ViewPort.contextType = Context;
