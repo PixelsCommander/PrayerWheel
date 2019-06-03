@@ -31,8 +31,7 @@ jobs:
 
       - run: yarn build
       - run: sudo apt install sshpass
-      - run: export SSHPASS=$FTP_PASSWORD
       - run:
           name: deploy app
-          command: sshpass -e scp ./build/* $FTP_USER@$SSH_HOST:/home/u4344/domains/prayerwheel.app
+          command: sshpass -p $FTP_PASSWORD scp ./build/* $FTP_USER@$SSH_HOST:/home/u4344/domains/prayerwheel.app
       - run: echo 'done'
