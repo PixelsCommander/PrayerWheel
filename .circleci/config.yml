@@ -1,0 +1,37 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8
+
+    branches:
+      only:
+        - master
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run: yarn build
+      - run:
+          name: deploy app
+          command: scp ./build/* $FTP_USER@$SSH_HOST:/home/u4344/domains/prayerwheel.app
+            - $FTP_PASSWORD
+      - run: echo 'done'
