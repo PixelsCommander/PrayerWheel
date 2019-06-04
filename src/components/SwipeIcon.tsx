@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mantrasInterval } from "../constants";
+import { swipeIntroLength } from "../constants";
 
 export class SwipeIcon extends React.Component<{}, { visible: boolean }> {
 
@@ -16,7 +16,7 @@ export class SwipeIcon extends React.Component<{}, { visible: boolean }> {
             this.setState({
                 visible: false,
             });
-        }, mantrasInterval);
+        }, swipeIntroLength);
     }
 
     render() {
