@@ -15,7 +15,7 @@ export class Wheel extends Mesh {
         super(name, scene);
         this.context = context;
 
-        SceneLoader.Append("./assets/", "prayerwheel.glb", scene, (sceneArg) => {
+        SceneLoader.Append("./assets/prayer-wheel/", "prayerdrum.gltf", scene, (sceneArg) => {
             this.model = this.getScene().meshes.find(mesh => {
                 if (mesh.name === "baked") {
                     return true;
@@ -92,7 +92,7 @@ export class Wheel extends Mesh {
 
     rotateWheel = () => {
         if (this.model) {
-            this.model.rotate(Axis.Y, this.speed, Space.WORLD);
+            this.model.rotate(Axis.Y, -this.speed, Space.WORLD);
         }
 
         if (!this.autoRotate) {
