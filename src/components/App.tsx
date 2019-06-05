@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import {ViewPort} from './ViewPort';
 import {Mantra} from './Mantra';
 import {Context, ContextType} from '../Context';
