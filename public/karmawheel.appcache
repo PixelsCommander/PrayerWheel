@@ -1,2 +1,12 @@
 CACHE MANIFEST
-./*
+# version 2
+
+CACHE
+./assets/prayer-wheel/prayerdrum.gltf
+./assets/prayer-wheel/tibetian_albedo.jpg
+./assets/prayer-wheel/tibetian_height.jpg
+./assets/prayer-wheel/tibetian_mask.jpg
+./assets/prayer-wheel/tibetian_normal.jpg
+./assets/prayer-wheel/tibetian_occlusion++.jpg
+./assets/prayer-wheel/tibetian_occlusion+.jpg
+./assets/prayer-wheel/tibetian_roughnes.jpg
