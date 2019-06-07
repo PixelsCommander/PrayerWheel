@@ -36,7 +36,7 @@ export class Wheel extends Mesh {
     initDrag() {
         var pointerDragBehavior = new PointerDragBehavior({dragAxis: new Vector3(1, 0, 0)});
         pointerDragBehavior.moveAttached = false;
-        pointerDragBehavior.useObjectOrienationForDragging = false;
+        pointerDragBehavior.useObjectOrienationForDragging = true;
 
         pointerDragBehavior.onDragStartObservable.add((event) => {
             console.log('Drag start');
