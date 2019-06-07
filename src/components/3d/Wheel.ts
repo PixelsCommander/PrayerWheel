@@ -39,6 +39,7 @@ export class Wheel extends Mesh {
         pointerDragBehavior.useObjectOrienationForDragging = false;
 
         pointerDragBehavior.onDragStartObservable.add((event) => {
+            console.log('Drag start');
             const pickResult = this.getScene().pick(this.getScene().pointerX, this.getScene().pointerY);
 
             if (pickResult && pickResult.hit && pickResult.pickedPoint) {
@@ -77,7 +78,9 @@ export class Wheel extends Mesh {
     }
 
     setSpeed(pixels: number) {
-        const speed = Math.max(pixels, this.speed);
+        let targetSpeed = Math.max(pixels, this.speed);
+        const speed = lerp(this.speed, targetSpeed, 0.1);
+
         this.setSpeedToContext(speed);
         this.speed = speed;
     }
@@ -105,4 +108,8 @@ export class Wheel extends Mesh {
 
         requestAnimationFrame(this.rotateWheel);
     }
+}
+
+function lerp(start: number, end: number, amt: number): number {
+    return (1 - amt) * start + amt * end
 }

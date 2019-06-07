@@ -70,7 +70,7 @@ export class ViewPort extends React.Component {
     }
 
     render() {
-        return <canvas ref={this.canvas} className="ViewPort"></canvas>;
+        return <canvas ref={this.canvas} className="ViewPort" touch-action="none"></canvas>;
     }
 }
 
