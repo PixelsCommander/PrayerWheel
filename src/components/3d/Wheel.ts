@@ -5,6 +5,7 @@ import {minMantraSpeed} from "../../constants";
 
 export class Wheel extends Mesh {
     private model?: AbstractMesh;
+    private fingerGrip = 0.2;
     private speed = 0.01;
     private friction = 0.99;
     private autoRotate = false;
@@ -79,7 +80,7 @@ export class Wheel extends Mesh {
 
     setSpeed(pixels: number) {
         let targetSpeed = Math.max(pixels, this.speed);
-        const speed = lerp(this.speed, targetSpeed, 0.1);
+        const speed = lerp(this.speed, targetSpeed, this.fingerGrip);
 
         this.setSpeedToContext(speed);
         this.speed = speed;
