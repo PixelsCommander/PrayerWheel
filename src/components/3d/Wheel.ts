@@ -2,11 +2,13 @@ import {AbstractMesh, Mesh, Scene, SceneLoader, Axis, Space, PointerDragBehavior
 import "@babylonjs/loaders/";
 import {ContextType} from "../../Context";
 import {minMantraSpeed} from "../../constants";
+import {speedObservable} from "../../observables";
+import {lerp} from '../../utils';
 
 export class Wheel extends Mesh {
     private model?: AbstractMesh;
     private fingerGrip = 0.2;
-    private speed = 0.01;
+    private _speed = 0.01;
     private friction = 0.99;
     private autoRotate = false;
     private lastMousePosition?: number;
@@ -40,7 +42,6 @@ export class Wheel extends Mesh {
         pointerDragBehavior.useObjectOrienationForDragging = true;
 
         pointerDragBehavior.onDragStartObservable.add((event) => {
-            console.log('Drag start');
             const pickResult = this.getScene().pick(this.getScene().pointerX, this.getScene().pointerY);
 
             if (pickResult && pickResult.hit && pickResult.pickedPoint) {
@@ -78,6 +79,15 @@ export class Wheel extends Mesh {
         }
     }
 
+    get speed () {
+        return this._speed;
+    }
+
+    set speed(value: number) {
+        this._speed = value;
+        speedObservable.notifyObservers(value);
+    }
+
     setSpeed(pixels: number) {
         let targetSpeed = Math.max(pixels, this.speed);
         const speed = lerp(this.speed, targetSpeed, this.fingerGrip);
@@ -109,8 +119,4 @@ export class Wheel extends Mesh {
 
         requestAnimationFrame(this.rotateWheel);
     }
-}
-
-function lerp(start: number, end: number, amt: number): number {
-    return (1 - amt) * start + amt * end
 }

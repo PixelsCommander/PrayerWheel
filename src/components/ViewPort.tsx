@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
     Scene,
-    ArcRotateCamera,
     Vector3,
     DirectionalLight,
     Engine,
@@ -17,15 +16,16 @@ import "@babylonjs/inspector";
 import { Context } from "../Context";
 
 import {Wheel} from './3d/Wheel';
+import {WheelCamera} from './3d/WheelCamera';
 
-const skyboxPath = "/assets/environment-specular.env";
+const skyboxPath = '/assets/environment-specular.env';
 
 export class ViewPort extends React.Component {
 
     private canvas = React.createRef<HTMLCanvasElement>();
     private scene!: Scene;
     private engine!: Engine;
-    private camera!: ArcRotateCamera;
+    private camera!: WheelCamera;
     private light!: DirectionalLight;
     private karmaWheel!: Wheel;
 
@@ -33,7 +33,7 @@ export class ViewPort extends React.Component {
         this.engine = new Engine(this.canvas.current, true, undefined, true);
         this.scene = new Scene(this.engine);
 
-        this.camera = new ArcRotateCamera('camera', 0, 1.75, 14.5, new Vector3(0, 0.9, 0), this.scene);
+        this.camera = new WheelCamera(this.scene);
 
         this.light = new DirectionalLight('light1', new Vector3(-5, 6, 3), this.scene);
         this.light.direction = new Vector3(-0.892, -0.405, -0.2);
