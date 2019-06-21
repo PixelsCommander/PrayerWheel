@@ -11,9 +11,11 @@ class App extends React.Component<{}, ContextType> {
             speed: 0,
             spins: 0,
             loaded: false,
+            everSpinned: false,
             setSpins: this.setSpins.bind(this),
             setSpeed: this.setSpeed.bind(this),
             setLoaded: this.setLoaded.bind(this),
+            setEverSpinned: this.setEverSpinned.bind(this),
         };
     }
 
@@ -35,12 +37,17 @@ class App extends React.Component<{}, ContextType> {
         });
     }
 
+    setEverSpinned(value: boolean) {
+        this.setState({
+            everSpinned: value,
+        });
+    }
+
     render() {
         return (<div className="App">
             <Context.Provider value={this.state}>
                 <ViewPort/>
-                {this.state.loaded && <Mantra/>}
-                {this.state.loaded && <SwipeIcon/>}
+                {this.state.loaded && <Mantra/> && <SwipeIcon/>}
             </Context.Provider>
         </div>);
     }

@@ -1,13 +1,19 @@
 import * as React from 'react';
-import { swipeIntroLength } from "../constants";
+import { swipeIntroLength, swipeFadeInLength } from "../constants";
 
-export class SwipeIcon extends React.Component<{}, { visible: boolean }> {
+interface SwipeIconState {
+    visible: boolean;
+    removed: boolean;
+}
+
+export class SwipeIcon extends React.Component<{}, SwipeIconState> {
 
     constructor(props: {}) {
         super(props);
 
         this.state = {
             visible: true,
+            removed: false,
         };
     }
 
@@ -17,6 +23,12 @@ export class SwipeIcon extends React.Component<{}, { visible: boolean }> {
                 visible: false,
             });
         }, swipeIntroLength);
+
+        setTimeout(() => {
+            this.setState({
+                removed: true,
+            });
+        }, swipeIntroLength + swipeFadeInLength);
     }
 
     render() {
@@ -27,8 +39,8 @@ export class SwipeIcon extends React.Component<{}, { visible: boolean }> {
             classNames.push('Invisible');
         }
 
-        return <div className="DialogOverlay">
+        return !this.state.removed ? <div className="DialogOverlay">
             <img alt="Swipe pointer" className={classNames.join(' ')} src="./assets/swipe-icon.svg"/>
-        </div>;
+        </div> : null;
     }
 }

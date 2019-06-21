@@ -2,8 +2,9 @@ import {ArcRotateCamera, Vector3, Scene} from '@babylonjs/core';
 import {speedObservable} from '../../observables';
 import {lerp} from '../../utils';
 
-const minBeta = 1.85;
-const maxBeta = Math.PI / 2 + 0.15;
+const minBeta = 1.8;
+const notAdaptiveBeta = 1.75;
+const maxBeta = Math.PI / 2 + 0.12;
 const minSpeed = 0;
 const maxSpeed = 0.07;
 const cameraSpeed = 0.05;
@@ -12,11 +13,13 @@ export class WheelCamera extends ArcRotateCamera {
 
     private targetBeta = minBeta;
 
-    constructor(scene: Scene) {
-        super('camera', 0, minBeta, 14.5, new Vector3(0, 0.8, 0), scene);
+    constructor(scene: Scene, adaptive = false) {
+        super('camera', 0, adaptive ? minBeta : notAdaptiveBeta, 14.3, new Vector3(0, 0.8, 0), scene);
 
-        speedObservable.add(this.onSpeedUpdated);
-        this.lerpSpeed();
+        if (adaptive) {
+            speedObservable.add(this.onSpeedUpdated);
+            this.lerpSpeed();
+        }
     }
 
     onSpeedUpdated = (speed: any) => {

@@ -94,6 +94,10 @@ export class Wheel extends Mesh {
 
         this.setSpeedToContext(speed);
         this.speed = speed;
+
+        if (this.context.setEverSpinned && !this.context.everSpinned) {
+            this.context.setEverSpinned(true);
+        }
     }
 
     // Optimization to run tree updates only when boundry of minMantraSpeed is reached
