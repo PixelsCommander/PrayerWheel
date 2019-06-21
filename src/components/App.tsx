@@ -44,10 +44,16 @@ class App extends React.Component<{}, ContextType> {
     }
 
     render() {
+
+        const loadedContent = <div>
+            <Mantra/>
+            <SwipeIcon/>
+        </div>;
+
         return (<div className="App">
             <Context.Provider value={this.state}>
                 <ViewPort/>
-                {this.state.loaded && <Mantra/> && <SwipeIcon/>}
+                {this.state.loaded && loadedContent}
             </Context.Provider>
         </div>);
     }
