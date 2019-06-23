@@ -30,9 +30,7 @@ export class Wheel extends Mesh {
             this.rotateWheel();
             this.initDrag();
 
-            if (context.setLoaded) {
-                context.setLoaded(true);
-            }
+            context.loaded = true;
         });
     }
 
@@ -95,16 +93,16 @@ export class Wheel extends Mesh {
         this.setSpeedToContext(speed);
         this.speed = speed;
 
-        if (this.context.setEverSpinned && !this.context.everSpinned) {
-            this.context.setEverSpinned(true);
+        if (!this.context.everSpinned) {
+            this.context.everSpinned = true;
         }
     }
 
     // Optimization to run tree updates only when boundry of minMantraSpeed is reached
     setSpeedToContext(newSpeed: number) {
-        if (this.context.setSpeed && ((newSpeed >= minMantraSpeed && this.speed <= minMantraSpeed) ||
+        if (((newSpeed >= minMantraSpeed && this.speed <= minMantraSpeed) ||
             (this.speed >= minMantraSpeed && newSpeed <= minMantraSpeed))) {
-            this.context.setSpeed(newSpeed);
+            this.context.speed = newSpeed;
         }
     }
 
