@@ -45,6 +45,14 @@ export class LoadingScreen extends React.Component<{}, {}> {
         this.scene.debugLayer.show();
     }
 
+    componentWillUnmount(): void {
+        this.light.dispose();
+        this.camera.dispose();
+        this.scene.dispose();
+        this.dharmachakra.dispose();
+        this.engine.dispose();
+    }
+
     render() {
         return <canvas ref={this.canvas} className="ViewPort LoadingScreen" touch-action="none"></canvas>;
     }

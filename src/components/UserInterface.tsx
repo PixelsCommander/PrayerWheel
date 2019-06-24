@@ -6,7 +6,7 @@ import {SwipeIcon} from "./SwipeIcon";
 
 export class UserInterface extends React.Component<{}, {}> {
     render() {
-        const preloader = !this.context.loaded ? <LoadingScreen/> : null;
+        const preloader = !this.context.loaded ? <LoadingScreen/> : undefined;
 
         const loadedContent = <div>
             <Mantra/>

@@ -5,7 +5,6 @@ import {UserInterface} from './UserInterface';
 
 class App extends React.Component<{}, {}> {
     render() {
-
         return (<div className="App">
             <Provider>
                 <ViewPort/>
