@@ -8,7 +8,11 @@ import {Dharmachakra} from "./3d/Dharmachakra";
 
 const skyboxPath = '/assets/environment-specular.env';
 
-export class LoadingScreen extends React.Component<{}, {}> {
+interface LoadingScreenProps {
+    invisible: boolean;
+}
+
+export class LoadingScreen extends React.Component<LoadingScreenProps, {}> {
 
     private canvas = React.createRef<HTMLCanvasElement>();
     private scene!: Scene;
@@ -34,15 +38,11 @@ export class LoadingScreen extends React.Component<{}, {}> {
 
         this.dharmachakra = new Dharmachakra('wheel', this.scene, this.context);
 
-        this.engine.runRenderLoop(() => {
-            this.scene.render();
-        });
+        this.engine.runRenderLoop(this.renderLoop);
 
-        window.addEventListener('resize', () => {
-            this.engine.resize();
-        });
+        window.addEventListener('resize', this.resize);
 
-        this.scene.debugLayer.show();
+        //this.scene.debugLayer.show();
     }
 
     componentWillUnmount(): void {
@@ -51,9 +51,20 @@ export class LoadingScreen extends React.Component<{}, {}> {
         this.scene.dispose();
         this.dharmachakra.dispose();
         this.engine.dispose();
+
+        window.removeEventListener('resize', this.resize);
     }
 
     render() {
-        return <canvas ref={this.canvas} className="ViewPort LoadingScreen" touch-action="none"></canvas>;
+        const classNames = this.props.invisible ? "ViewPort LoadingScreen Invisible" : "ViewPort LoadingScreen";
+        return <canvas ref={this.canvas} className={classNames} touch-action="none"></canvas>;
+    }
+
+    resize = () => {
+        this.engine.resize();
+    }
+
+    renderLoop = () => {
+        this.scene.render();
     }
 }

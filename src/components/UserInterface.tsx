@@ -1,17 +1,42 @@
 import * as React from 'react';
-import {Context} from "../Context";
+import {Context, ContextType} from "../Context";
 import {LoadingScreen} from "./LoadingScreen";
 import {Mantra} from "./Mantra";
 import {SwipeIcon} from "./SwipeIcon";
 
-export class UserInterface extends React.Component<{}, {}> {
-    render() {
-        const preloader = !this.context.loaded ? <LoadingScreen/> : undefined;
+interface UserInterfaceState {
+    preloaderVisible: boolean;
+}
 
-        const loadedContent = <div>
+export class UserInterface extends React.Component<{}, UserInterfaceState> {
+
+    private fadeInTimeout?: number;
+
+    constructor(props: any) {
+        super(props);
+
+        this.state = {
+            preloaderVisible: true,
+        };
+    }
+
+    componentWillUpdate(nextProps: Readonly<{}>, nextState: Readonly<UserInterfaceState>, nextContext: ContextType): void {
+        if (nextContext.loaded && this.state.preloaderVisible && !this.fadeInTimeout) {
+            this.fadeInTimeout = window.setTimeout(() => {
+                this.setState({
+                    preloaderVisible: false,
+                });
+            }, 1000);
+        }
+    }
+
+    render() {
+        const preloader = this.state.preloaderVisible ? <LoadingScreen invisible={this.context.loaded}/> : undefined;
+
+        const loadedContent = <React.Fragment>
             <Mantra/>
             <SwipeIcon/>
-        </div>;
+        </React.Fragment>;
 
         return <React.Fragment>
             {this.context.loaded && loadedContent}
