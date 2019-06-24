@@ -13,8 +13,6 @@ export class UserInterface extends React.Component<{}, {}> {
             <SwipeIcon/>
         </div>;
 
-        console.log('UI render');
-
         return <React.Fragment>
             {this.context.loaded && loadedContent}
             {preloader}

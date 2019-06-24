@@ -48,19 +48,20 @@ export class Provider extends React.Component<any, any> {
         Object.defineProperty(this.props.context._currentValue, key, {
             get: () => this.props.context._currentValue['_' + key],
             set: (val) => {
-
-                console.log(key);
                 this.props.context._currentValue['_' + key] = val;
-                this.props.context._currentValue = Object.assign({}, this.props.context._currentValue);
-                this.createSetters();
-                this.forceUpdate();
+                let stateChange: {[key: string]: any} = {};
+                stateChange[key] = val;
+
+                this.setState(stateChange);
+
+                //this.state = Object.assign(this.state, stateChange);
             }
         });
     }
 
     render() {
-        console.log('Provider render');
-        return <this.props.context.Provider value={this.props.context._currentValue}>
+        //console.log('Provider render');
+        return <this.props.context.Provider value={this.state}>
                 {this.props.children}
             </this.props.context.Provider>;
     }

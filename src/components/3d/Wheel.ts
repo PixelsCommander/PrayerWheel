@@ -30,7 +30,7 @@ export class Wheel extends Mesh {
             this.rotateWheel();
             this.initDrag();
 
-            context.loaded = true;
+            setTimeout(() => context.loaded = true, 1000);
         });
     }
 
