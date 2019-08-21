@@ -5,6 +5,7 @@ export type ContextType = {
     spins: number,
     loaded: boolean;
     everSpinned: boolean;
+    autoRotation: boolean;
 };
 
 const eContext = createContext({
@@ -12,6 +13,7 @@ const eContext = createContext({
     spins: 0,
     loaded: false,
     everSpinned: false,
+    autoRotation: true,
 });
 
 export const Context = eContext.context;

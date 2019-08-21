@@ -8,6 +8,7 @@ import {lerp} from '../../utils';
 export class Wheel extends Mesh {
     private model?: AbstractMesh;
     private fingerGrip = 0.2;
+    private minimumSpeed = 0.01;
     private _speed = 0.01;
     private friction = 0.99;
     private autoRotate = false;
@@ -88,7 +89,8 @@ export class Wheel extends Mesh {
 
     setSpeed(pixels: number) {
         let targetSpeed = Math.max(pixels, this.speed);
-        const speed = lerp(this.speed, targetSpeed, this.fingerGrip);
+
+        let speed = lerp(this.speed, targetSpeed, this.fingerGrip);
 
         this.setSpeedToContext(speed);
         this.speed = speed;
@@ -111,13 +113,14 @@ export class Wheel extends Mesh {
             this.model.rotate(Axis.Y, -this.speed, Space.WORLD);
         }
 
-        if (!this.autoRotate) {
-            const newSpeed = this.speed * this.friction;
+        let newSpeed = this.speed * this.friction;
 
-            this.setSpeedToContext(newSpeed);
-
-            this.speed = newSpeed;
+        if (this.context.autoRotation) {
+            newSpeed = Math.max(this.minimumSpeed, newSpeed);
         }
+
+        this.setSpeedToContext(newSpeed);
+        this.speed = newSpeed;
 
         requestAnimationFrame(this.rotateWheel);
     }

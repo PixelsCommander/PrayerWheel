@@ -22,13 +22,12 @@ export class Provider extends React.Component<any, any> {
 
     componentDidMount(): void {
         this.context = this.props.context;
-        this.initContextProperties();
         this.createSetters();
     }
 
     initContextProperties() {
         const keys = Object.keys(this.props.initialValue);
-        const values = Object.values(this.props.initialValue);
+        const values = keys.map(key => this.props.initialValue[key]);
 
         keys.forEach((key, idx) => {
             const value = values[idx];
@@ -38,13 +37,16 @@ export class Provider extends React.Component<any, any> {
 
     createSetters() {
         const keys = Object.keys(this.props.initialValue);
+        const values = Object.values(this.props.initialValue)
 
         keys.forEach((key, idx) => {
-            this.createSetter(key);
+            this.createSetter(key, values[idx]);
         });
     }
 
-    createSetter(key: string) {
+    createSetter(key: string, defaultValue: any) {
+        this.props.context._currentValue['_' + key] = defaultValue;
+
         Object.defineProperty(this.props.context._currentValue, key, {
             get: () => this.props.context._currentValue['_' + key],
             set: (val) => {

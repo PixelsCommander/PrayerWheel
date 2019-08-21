@@ -8,10 +8,10 @@ export interface MantraState {
 }
 
 const texts = [
-    'May all beings everywhere be happy and free',
-    'May all beings everywhere be free of suffering',
+    'May all beings everywhere be happy and free', //སེམས་ཅན་ཐམས་ཅད་བདེ་བ་དང་བདེ་པའི་ར
+    'May all beings everywhere be free of suffering',//་སེམས་ཅན་ཐམས་ཅད་བདེ་བ་དང་བདེ་པའ་
     'May my thoughts, words, and actions contribute in some way to happiness and freedom for all',
-]
+];
 
 export class Mantra extends React.Component<{}, MantraState> {
 
