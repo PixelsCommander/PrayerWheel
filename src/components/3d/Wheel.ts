@@ -12,12 +12,14 @@ export class Wheel extends Mesh {
     private _speed = 0.01;
     private friction = 0.99;
     private autoRotate = false;
-    private lastMousePosition?: number;
+    private lastRelativePosition?: number;
     private context: ContextType;
 
     constructor(name: string, scene: Scene, context: ContextType) {
         super(name, scene);
         this.context = context;
+
+        SceneLoader.ShowLoadingScreen = false;
 
         SceneLoader.Append("./assets/prayer-wheel/", "prayerdrum.gltf", scene, (sceneArg) => {
             this.model = this.getScene().meshes.find(mesh => {
@@ -30,6 +32,15 @@ export class Wheel extends Mesh {
 
             this.rotateWheel();
             this.initDrag();
+
+            const preloader = document.getElementById("Loader");
+
+            if (preloader !== null) {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(preloader);
+                }, 1500);
+            }
 
             setTimeout(() => context.loaded = true, 1000);
         });
@@ -44,7 +55,7 @@ export class Wheel extends Mesh {
             const pickResult = this.getScene().pick(this.getScene().pointerX, this.getScene().pointerY);
 
             if (pickResult && pickResult.hit && pickResult.pickedPoint) {
-                this.lastMousePosition = pickResult.pickedPoint.z;
+                this.lastRelativePosition = pickResult.pickedPoint.z;
             }
         })
 
@@ -55,22 +66,22 @@ export class Wheel extends Mesh {
 
                 const relativePosition = Math.min(1, pickResult.pickedPoint.z / 2.5);
 
-                if (this.lastMousePosition !== undefined) {
-                    const oldAngle = Math.acos(this.lastMousePosition);
+                if (this.lastRelativePosition !== undefined) {
+                    const oldAngle = Math.acos(this.lastRelativePosition);
                     const newAngle = Math.acos(relativePosition);
-
                     const speed = newAngle - oldAngle;
+
                     if (speed > 0) {
                         this.setSpeed(speed);
                     }
                 }
 
-                this.lastMousePosition = relativePosition;
+                this.lastRelativePosition = relativePosition;
             }
         })
 
         pointerDragBehavior.onDragEndObservable.add((event) => {
-            this.lastMousePosition = undefined;
+            this.lastRelativePosition = undefined;
         })
 
         if (this.model) {

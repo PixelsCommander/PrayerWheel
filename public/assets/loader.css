@@ -1,0 +1,68 @@
+.Loader {
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    max-width: 100%;
+    transition: all 1s ease;
+}
+
+.Centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.Loader-content {
+    max-width: 500px;
+    padding: 20px;
+}
+
+.Wheel {
+    padding: 10% 0 10% 0;
+    animation: spin 8s infinite linear;
+}
+
+.Header {
+    padding: 0 0 0 0;
+    max-width: 100%;
+}
+
+.Loader-text, .Bottom-link {
+    font-family: Helvetica;
+    font-size: 14px;
+    min-width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.Bottom-link {
+    color: black;
+    text-decoration: underline;
+    position: absolute;
+    bottom: 5%;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0.0;
+    }
+}
+@-webkit-keyframes blink {
+    50% {
+        opacity: 0.0;
+    }
+}
+.Blink {
+    animation: blink 1s step-start 0s infinite;
+    -webkit-animation: blink 1s step-start 0s infinite;
+}
+
+@keyframes spin {
+    0%  {-webkit-transform: rotate(0deg);}
+    100% {-webkit-transform: rotate(360deg);}
+}
