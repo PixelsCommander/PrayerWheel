@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {Context, ContextType} from "../Context";
+import {LoadingScreen} from "./LoadingScreen";
 import {Mantra} from "./Mantra";
 import {SwipeIcon} from "./SwipeIcon";
 
@@ -30,13 +31,13 @@ export class UserInterface extends React.Component<{}, UserInterfaceState> {
     }
 
     render() {
-        const loadedContent = <React.Fragment>
+        const content = this.state.preloaderVisible ? undefined : <React.Fragment>
             <Mantra/>
             <SwipeIcon/>
         </React.Fragment>;
 
         return <React.Fragment>
-            {loadedContent}
+            {content}
         </React.Fragment>
     }
 }
