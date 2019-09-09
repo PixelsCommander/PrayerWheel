@@ -6,7 +6,7 @@ According to Tibetan Buddhist tradition, a prayer wheel produces positive karma 
 
 His Holiness, the Dalai Lama, has said that having the mantra on your computer works the same as a traditional Mani wheel. So here comes open source 3d prayer wheel built with WebGL, ReactJS and physical based rendering.
 
-[Spin the wheel](https://prayer-wheel.herokuapp.com/)
+[Spin the wheel](https://karmawheel.org/)
 
 All contributions and ideas are welcome.
 
