@@ -30,7 +30,6 @@ export class UserInterface extends React.Component<{}, UserInterfaceState> {
     }
 
     render() {
-        console.log('Preloader visible', this.state.preloaderVisible);
         const content = this.state.preloaderVisible ? undefined : <React.Fragment>
             <Mantra/>
             <SwipeIcon/>
