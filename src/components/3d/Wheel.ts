@@ -39,7 +39,7 @@ export class Wheel extends Mesh {
                 preloader.style.opacity = '0';
                 setTimeout(() => {
                     document.body.removeChild(preloader);
-                }, 1500);
+                }, 1000);
             }
 
             setTimeout(() => context.loaded = true, 1000);
